@@ -1,0 +1,20 @@
+[project]
+name = "loan-agent"
+version = "0.1.0"
+description = "Deterministic loan-decisioning policy engine with a local-LLM narrator"
+requires-python = ">=3.10"
+dependencies = [
+    # OpenAI-compatible client for the local LLM (Ollama, LM Studio, vLLM, ...)
+    "openai>=1.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AsaanBank — Operations Ledger</title>
+<link rel="stylesheet" href="/static/dashboard.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F1412'/><path d='M8 21V11M16 21V8M24 21v-6' stroke='%235FE0C0' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="var(--surface-hi)" stroke="var(--border)"/>
+        <path d="M8 22V12M16 22V7M24 22v-7" stroke="var(--ledger)" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="24" cy="11" r="2.4" fill="var(--narrative)"/>
+      </svg>
+      <div>
+        <div class="brand-mark">Asaan<em>Bank</em></div>
+        <div class="brand-sub">Operations Ledger</div>
+      </div>
+    </div>
+    <div class="masthead-meta">
+      <span id="today-date"></span>
+      <span class="status-pill" id="loan-llm-pill"><span class="status-dot"></span><span>loans model: checking…</span></span>
+      <span class="status-pill" id="atm-llm-pill"><span class="status-dot"></span><span>atm model: checking…</span></span>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-view="story">How it works</button>
+    <button class="tab" data-view="loans">Loans Desk</button>
+    <button class="tab" data-view="atm">ATM Ops</button>
+    <button class="tab" data-view="tasks">Task Ledger<span class="count">51</span></button>
+  </nav>
+</header>
+
+<!-- ============================================================ HOW IT WORKS -->
+<main class="view active" id="view-story">
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">One fine-tuned model · two banking domains · 51 job types</div>
+      <h1 class="hero-title">The computer decides.<br><span class="hero-title-alt">The AI only explains.</span></h1>
+      <p class="hero-lede">
+        A bank cannot let a language model approve loans — it might invent a number and
+        ruin someone's life. So here the maths and the decision happen in plain, auditable
+        code. The AI is handed the finished verdict and asked to write it up like a human
+        colleague would. It is never asked what the answer is.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="start-tour">Walk me through it</button>
+        <span class="hint">7 steps · about a minute</span>
+      </div>
+    </div>
+    <div class="hero-diagram" id="hero-diagram"></div>
+  </section>
+
+  <section class="tour" id="tour" hidden>
+    <div class="tour-head">
+      <div class="tour-progress-wrap">
+        <div class="tour-steps" id="tour-steps"></div>
+        <div class="tour-bar"><div class="tour-bar-fill" id="tour-bar-fill"></div></div>
+      </div>
+      <button class="btn btn-ghost" id="tour-exit">Close</button>
+    </div>
+    <div class="tour-stage" id="tour-stage"></div>
+    <div class="tour-nav">
+      <button class="btn" id="tour-prev">Back</button>
+      <span class="tour-counter" id="tour-counter"></span>
+      <button class="btn btn-primary" id="tour-next">Continue</button>
+    </div>
+  </section>
+
+  <section class="section-block" id="quiz-block">
+    <div class="section-head">
+      <div class="section-title">Now you try</div>
+      <div class="section-note">real customers from the book · you decide, then see what the policy says</div>
+    </div>
+    <div class="quiz" id="quiz"></div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-head">
+      <div class="section-title">What the engine can do</div>
+      <div class="section-note">every job type the model was trained on, split across the two domains</div>
+    </div>
+    <div class="domain-cards">
+      <article class="domain-card" data-goto="loans">
+        <div class="domain-icon">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <rect x="6" y="9" width="28" height="22" rx="3" fill="none" stroke="var(--ledger)" stroke-width="2"/>
+            <path d="M6 15h28" stroke="var(--ledger)" stroke-width="2"/>
+            <circle cx="27" cy="24" r="3.4" fill="var(--narrative)" opacity=".85"/>
+            <path d="M11 21h8M11 25h5" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>The loans desk</h3>
+        <p>Grades every customer relationship, spots who is genuinely short of cash, sizes an
+           affordable offer, and refuses to lend where it would do harm — with a workable
+           alternative every time it says no.</p>
+        <div class="domain-count"><strong>18</strong> job types</div>
+        <div class="domain-link">Open the desk →</div>
+      </article>
+      <article class="domain-card" data-goto="atm">
+        <div class="domain-icon">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <rect x="9" y="6" width="22" height="28" rx="3" fill="none" stroke="var(--ledger)" stroke-width="2"/>
+            <rect x="13" y="10" width="14" height="8" rx="1.5" fill="var(--ledger)" opacity=".25"/>
+            <path d="M14 24h12" stroke="var(--narrative)" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M16 28h8" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>The ATM network</h3>
+        <p>Watches every machine's cash, forecasts which one runs dry and when, routes the
+           armoured van, triages faults and security alarms, and answers customers standing
+           at the machine right now.</p>
+        <div class="domain-count"><strong>33</strong> job types</div>
+        <div class="domain-link">Open ops →</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="trust-strip">
+      <div class="trust-item">
+        <div class="trust-n" data-count="156">0</div>
+        <div class="trust-l">tests pinning the maths</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n" data-count="51">0</div>
+        <div class="trust-l">job types covered</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n" data-count="18536">0</div>
+        <div class="trust-l">examples the model learned from</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n trust-n-text">0</div>
+        <div class="trust-l">decisions the AI can overrule</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================ LOANS DESK -->
+<main class="view" id="view-loans">
+  <div class="stat-strip" id="loan-stats"></div>
+
+  <div class="section-head">
+    <div class="section-title">Proactive lending queue</div>
+    <div class="section-note">policy: offer to STRONG/ACCEPTABLE with genuine stress · monitor THIN · no unsecured to POOR</div>
+  </div>
+  <div class="board" id="loan-board">
+    <div class="board-col" data-action="OFFER">
+      <div class="board-col-head"><span class="name">Offer</span><span class="n" id="count-offer">—</span></div>
+      <div class="board-col-list" id="list-offer"></div>
+    </div>
+    <div class="board-col" data-action="MONITOR">
+      <div class="board-col-head"><span class="name">Monitor</span><span class="n" id="count-monitor">—</span></div>
+      <div class="board-col-list" id="list-monitor"></div>
+    </div>
+    <div class="board-col" data-action="DECLINE">
+      <div class="board-col-head"><span class="name">Decline</span><span class="n" id="count-decline">—</span></div>
+      <div class="board-col-list" id="list-decline"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ============================================================ ATM OPS -->
+<main class="view" id="view-atm">
+  <div class="stat-strip" id="atm-stats"></div>
+
+  <div class="section-head">
+    <div class="section-title">NOC alert queue — Multan zone</div>
+    <div class="section-note">P1 = cash-out / hardware down / security · P2 = degraded service · P3–P4 = non-customer-facing</div>
+  </div>
+  <div class="duo" style="margin-bottom: 8px;">
+    <div id="alerts-list"></div>
+  </div>
+
+  <div class="section-head">
+    <div class="section-title">Fleet status</div>
+    <div class="section-note" id="fleet-note"></div>
+  </div>
+  <div class="fleet-grid" id="fleet-grid"></div>
+</main>
+
+<!-- ============================================================ TASK LEDGER -->
+<main class="view" id="view-tasks">
+  <input type="text" class="task-search" id="task-search" placeholder="Search all 51 task types — try &quot;gold&quot;, &quot;fraud&quot;, &quot;cassette&quot;…" autocomplete="off">
+  <div class="task-groups" id="task-groups"></div>
+</main>
+
+<!-- ============================================================ DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div>
+      <h2 id="drawer-title">—</h2>
+      <div class="sub" id="drawer-subtitle"></div>
+    </div>
+    <button class="drawer-close" id="drawer-close" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<script src="/static/dashboard.js"></script>
+<script src="/static/story.js"></script>
+</body>
+</html>
