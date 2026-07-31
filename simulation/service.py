@@ -250,9 +250,12 @@ def llm_status():
     def probe(base_url_fn, api_key_env, model_fn):
         model = model_fn()
         try:
+            # 8s, not 4: the first probe after boot pays TCP setup to a remote
+            # GPU box and was timing out, showing "template mode" on a model
+            # that was actually fine. Warm probes still answer in ~0.1s.
             client = OpenAI(
                 api_key=os.environ.get(api_key_env, "ollama"),
-                base_url=base_url_fn(), timeout=4.0, max_retries=0,
+                base_url=base_url_fn(), timeout=8.0, max_retries=1,
             )
             available = [m.id for m in client.models.list().data]
             # Ollama reports tags as "name:latest"; accept a bare-name match.

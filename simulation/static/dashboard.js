@@ -51,15 +51,21 @@ function closeDrawer() {
   $('#drawer-overlay').classList.remove('open');
 }
 
-async function checkLlmStatus() {
+// Re-checks while disconnected: a probe issued in the seconds after the
+// server boots can time out on a cold connection to the GPU box and report
+// "template mode" for a model that is actually up. Retrying a few times
+// lets that false negative correct itself instead of misleading the reader.
+async function checkLlmStatus(attempt = 0) {
+  let d;
   try {
-    const r = await fetch('/llm-status');
-    const d = await r.json();
-    setPill('#loan-llm-pill', 'loans model', d.loans);
-    setPill('#atm-llm-pill', 'atm model', d.atm);
+    d = await (await fetch('/llm-status', { cache: 'no-store' })).json();
   } catch {
-    setPill('#loan-llm-pill', 'loans model', { connected: false, model: '?' });
-    setPill('#atm-llm-pill', 'atm model', { connected: false, model: '?' });
+    d = { loans: { connected: false, model: '?' }, atm: { connected: false, model: '?' } };
+  }
+  setPill('#loan-llm-pill', 'loans model', d.loans);
+  setPill('#atm-llm-pill', 'atm model', d.atm);
+  if (!(d.loans.connected && d.atm.connected) && attempt < 3) {
+    setTimeout(() => checkLlmStatus(attempt + 1), 5000);
   }
 }
 function setPill(sel, label, status) {
